@@ -1,0 +1,53 @@
+{
+    "name": "oakensoul/DataModeling",
+    "description": "DataModeling",
+    "license": "BSD-2-Clause",
+    "keywords": [
+        "framework",
+        "zf2",
+        "oakensoul",
+        "data modeling",
+        "orm",
+        "database",
+        "pdo",
+        "data mapper",
+        "service wrapper",
+        "domain model",
+        "table gateway wrapper",
+        "rest listener"
+    ],
+    "homepage": "https://github.com/oakensoul/DataModeling/",
+    "require": {
+        "php": ">=5.4",
+        "zendframework/zendframework": ">=2.2",
+        "phpunit/phpunit": "3.7.*",
+        "oakensoul/Cornerstone" : "0.*"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+      "psr-0": {
+        "DataModeling\\" : "./module/DataModeling/src/"
+      },
+      "classmap": [
+        "./module/DataModeling/Module.php"
+      ]
+    },
+    "repositories": [
+      {
+            "type": "vcs",
+            "url": "https://github.com/oakensoul/Cornerstone"
+      },
+      {
+        "type": "composer",
+        "url": "https://packages.zendframework.com/"
+      }
+    ],
+    "scripts" : {
+      "post-install-cmd" : [
+        
+      ],
+      "post-update-cmd" : [
+        
+      ]
+    }
+}
