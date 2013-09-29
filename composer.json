@@ -19,7 +19,9 @@
     "homepage": "https://github.com/oakensoul/DataModeling/",
     "require": {
         "php": ">=5.4",
-        "zendframework/zendframework": ">=2.2",
+        "zendframework/zendframework": ">=2.2"
+    },
+    "require-dev": {
         "phpunit/phpunit": "3.7.*",
         "oakensoul/Cornerstone" : "0.*"
     },
@@ -34,8 +36,8 @@
     },
     "repositories": [
       {
-            "type": "vcs",
-            "url": "https://github.com/oakensoul/Cornerstone"
+        "type": "vcs",
+        "url": "https://github.com/oakensoul/Cornerstone"
       },
       {
         "type": "composer",

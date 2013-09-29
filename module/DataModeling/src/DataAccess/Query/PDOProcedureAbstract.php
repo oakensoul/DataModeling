@@ -13,7 +13,7 @@ namespace DataModeling\DataAccess\Query;
 use DataModeling\DataAccess\Interrupt;
 
 /* Use statements for core php namespaces */
-use SplObjectStorage;
+use SplDoublyLinkedList;
 use PDO;
 use PDOStatement;
 
@@ -45,7 +45,7 @@ abstract class PDOProcedureAbstract extends PDOQueryAbstract
             ->GetServiceObject()
             ->prepare($sql);
 
-        $this->ParameterBind($stmt);
+        $this->WhereBind($stmt);
 
         if (true === $this->mLimitEnabled)
         {
@@ -57,7 +57,7 @@ abstract class PDOProcedureAbstract extends PDOQueryAbstract
 
         $this->mServiceResponse = $stmt->fetchAll();
 
-        $this->mResult = new SplObjectStorage();
+        $this->mResult = $this->GetResultPrototype();
 
         if (empty($this->mServiceResponse))
         {
@@ -99,45 +99,5 @@ abstract class PDOProcedureAbstract extends PDOQueryAbstract
         $result = implode(', ', $params);
 
         return $result;
-    }
-
-    /**
-     * Helper -- ParameterBind
-     *
-     * adds the parameter binding to the statement for each property in the
-     * payload. currently it doesn't do anything more complicated than spinning
-     * through the properties so there is no logic for handling optional
-     * parameters in the payload object yet, but i'll add them at some point
-     * when they become needed. for now just add them into the derived class and
-     * bug me when you need the option
-     *
-     * @param PDOStatement $pStatement
-     */
-    protected function ParameterBind (PDOStatement $pStatement)
-    {
-        foreach ($this->GetPayloadPrototype()->PropertyList() as $property)
-        {
-            $pStatement->bindParam(":$property", $this->GetPayload()
-                ->GetProperty($property));
-        }
-    }
-
-    /**
-     * Helper -- ProcessResponse
-     *
-     * Should process the response from the remote service and parse it
-     * into a format that will be returned to the caller
-     */
-    protected function ProcessResponse ()
-    {
-        foreach ($this->mServiceResponse as $row)
-        {
-            $model = $this->GetServiceWrapper()->GetPrototype();
-            $model->Hydrate($row);
-
-            $this->mResult->attach($model);
-        }
-
-        $this->mResult->rewind();
     }
 }

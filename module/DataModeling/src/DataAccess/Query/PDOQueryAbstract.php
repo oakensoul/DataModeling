@@ -10,14 +10,13 @@
 namespace DataModeling\DataAccess\Query;
 
 /* Use statements for Framework namespaces */
-use DataModeling\DataAccess\Model;
 use DataModeling\DataAccess\Interrupt;
 
 /* Use statements for ZF2 namespaces */
 use Zend\Validator;
 
 /* Use statements for core php namespaces */
-use SplObjectStorage;
+use SplDoublyLinkedList;
 use PDO;
 use PDOStatement;
 
@@ -79,7 +78,7 @@ abstract class PDOQueryAbstract extends QueryAbstract
     /**
      * This accessor allows the caller to set the behavior of a Query so that
      * it either throws an empty model exception when it can't find results
-     * or it will return an empty SplObjectStorage object
+     * or it will return an empty SplDoublyLinkedList object
      *
      * This behavior defaults to false
      *
@@ -197,7 +196,7 @@ abstract class PDOQueryAbstract extends QueryAbstract
 
         $this->mServiceResponse = $stmt->fetchAll();
 
-        $this->mResult = new SplObjectStorage();
+        $this->mResult = $this->GetResultPrototype();
 
         if (empty($this->mServiceResponse))
         {
@@ -351,15 +350,24 @@ abstract class PDOQueryAbstract extends QueryAbstract
      *
      * Should process the response from the remote service and parse it
      * into a format that will be returned to the caller
+     *
+     * Note: If you change the ResultPrototype, you will potentially have
+     * to change the "->push" call to "->attach" or whatever else you
+     * may want.
+     *
+     * @todo Eventually I'll replace all of this with DI object / interface
+     *
+     * It's using "push" by default because the default storage object is
+     * an SplDoublyLinkedList
      */
     protected function ProcessResponse ()
     {
         foreach ($this->mServiceResponse as $row)
         {
             $model = $this->GetServiceWrapper()->GetPrototype();
-            $model->Import(Model\StandardModelAbstract::FORMAT_ARRAY, $row);
+            $model->Hydrate($row);
 
-            $this->mResult->attach($model);
+            $this->mResult->push($model);
         }
 
         $this->mResult->rewind();

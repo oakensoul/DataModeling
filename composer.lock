@@ -3,61 +3,8 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b4c3d35d9ec35d217aaa01d4bca2897b",
+    "hash": "9892fd012bfda3619e1a6abe37198e4e",
     "packages": [
-        {
-            "name": "oakensoul/Cornerstone",
-            "version": "0.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oakensoul/Cornerstone.git",
-                "reference": "5ba55aa21af79720be41dff62300e17f64b6ee77"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/oakensoul/Cornerstone/zipball/5ba55aa21af79720be41dff62300e17f64b6ee77",
-                "reference": "5ba55aa21af79720be41dff62300e17f64b6ee77",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4",
-                "phpunit/phpunit": "3.7.*",
-                "zendframework/zendframework": ">=2.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Cornerstone\\": "./module/Cornerstone/src/"
-                },
-                "classmap": [
-                    "./module/Cornerstone/Module.php"
-                ]
-            },
-            "scripts": {
-                "post-install-cmd": [
-
-                ],
-                "post-update-cmd": [
-
-                ]
-            },
-            "license": [
-                "BSD-2"
-            ],
-            "description": "Cornerstone ZF2 base application Module",
-            "homepage": "https://github.com/oakensoul/Cornerstone/",
-            "keywords": [
-                "framework",
-                "oakensoul",
-                "skeleton",
-                "zf2"
-            ],
-            "support": {
-                "source": "https://github.com/oakensoul/Cornerstone/tree/0.0.2",
-                "issues": "https://github.com/oakensoul/Cornerstone/issues"
-            },
-            "time": "2013-09-23 02:03:51"
-        },
         {
             "name": "phpunit/php-code-coverage",
             "version": "1.2.13",
@@ -427,17 +374,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.3.4",
+            "version": "v2.3.5",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "5a279f1b5f5e1045a6c432354d9ea727ff3a9847"
+                "reference": "6bb881b948368482e1abf1a75c08bcf88a1c5fc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/5a279f1b5f5e1045a6c432354d9ea727ff3a9847",
-                "reference": "5a279f1b5f5e1045a6c432354d9ea727ff3a9847",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6bb881b948368482e1abf1a75c08bcf88a1c5fc3",
+                "reference": "6bb881b948368482e1abf1a75c08bcf88a1c5fc3",
                 "shasum": ""
             },
             "require": {
@@ -470,7 +417,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-08-24 15:26:22"
+            "time": "2013-09-22 18:04:39"
         },
         {
             "name": "zendframework/zendframework",
@@ -591,7 +538,59 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "oakensoul/Cornerstone",
+            "version": "0.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oakensoul/Cornerstone.git",
+                "reference": "0f178ef4f3b855a0d7ddae215aa0d5354eddb7a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oakensoul/Cornerstone/zipball/0f178ef4f3b855a0d7ddae215aa0d5354eddb7a5",
+                "reference": "0f178ef4f3b855a0d7ddae215aa0d5354eddb7a5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "phpunit/phpunit": "3.7.*",
+                "zendframework/zendframework": ">=2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Cornerstone\\": "./module/Cornerstone/src/"
+                },
+                "classmap": [
+                    "./module/Cornerstone/Module.php"
+                ]
+            },
+            "scripts": {
+                "post-install-cmd": [
 
+                ],
+                "post-update-cmd": [
+
+                ]
+            },
+            "license": [
+                "BSD-2"
+            ],
+            "description": "Cornerstone ZF2 base application Module",
+            "homepage": "https://github.com/oakensoul/Cornerstone/",
+            "keywords": [
+                "framework",
+                "oakensoul",
+                "skeleton",
+                "zf2"
+            ],
+            "support": {
+                "source": "https://github.com/oakensoul/Cornerstone/tree/0.0.7",
+                "issues": "https://github.com/oakensoul/Cornerstone/issues"
+            },
+            "time": "2013-09-29 04:32:41"
+        }
     ],
     "aliases": [
 

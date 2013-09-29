@@ -31,6 +31,14 @@ abstract class QueryAbstract
     protected $mPayloadClass;
 
     /**
+     * Stores the result class name so that we can validate the result
+     * but also so we can provide a prototype copy of the required result
+     *
+     * @var string
+     */
+    protected $mResultClass = 'SplDoublyLinkedList';
+
+    /**
      * Stores the result of the query to be accessed by the caller.
      * The result
      * is determined by the ProcessResponse method
@@ -168,6 +176,19 @@ abstract class QueryAbstract
     public function GetResult ()
     {
         return $this->mResult;
+    }
+
+    /**
+     * Utility -- GetResultPrototype
+     *
+     * Returns a prototype so that the client can use it to build the result
+     * object
+     *
+     * @return mixed
+     */
+    public function GetResultPrototype ()
+    {
+        return new $this->mResultClass();
     }
 
     /**
