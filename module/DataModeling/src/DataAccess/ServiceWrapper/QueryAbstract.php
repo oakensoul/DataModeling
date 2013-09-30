@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/BSD-2-Clause BSD-2-Clause
  * @package DataModeling
  */
-namespace DataModeling\DataAccess\Query;
+namespace DataModeling\DataAccess\ServiceWrapper;
 
 use DataModeling\DataAccess\Interfaces;
 use DataModeling\DataAccess\Interrupt;

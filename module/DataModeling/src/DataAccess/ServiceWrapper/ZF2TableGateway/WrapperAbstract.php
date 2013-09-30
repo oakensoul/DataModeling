@@ -7,18 +7,19 @@
  * @license http://opensource.org/licenses/BSD-2-Clause BSD-2-Clause
  * @package DataModeling
  */
-namespace DataModeling\DataAccess\ServiceWrapper;
+namespace DataModeling\DataAccess\ServiceWrapper\ZF2TableGateway;
 
 /* Use statements for Framework namespaces */
 use DataModeling\DataAccess\Interfaces;
 use DataModeling\DataAccess\Interrupt;
 use DataModeling\DataAccess\Model;
+use DataModeling\DataAccess\ServiceWrapper;
 
 /* Use statements for ZF2 Table Gateway */
 use Zend\Db\TableGateway\TableGateway;
 use Exception;
 
-abstract class ZF2TableGatewayWrapperAbstract extends WrapperAbstract implements Interfaces\DataMapper
+abstract class WrapperAbstract extends ServiceWrapper\WrapperAbstract implements Interfaces\DataMapper
 {
 
     /**

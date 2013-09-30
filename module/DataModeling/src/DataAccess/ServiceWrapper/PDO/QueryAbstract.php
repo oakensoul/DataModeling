@@ -7,10 +7,11 @@
  * @license http://opensource.org/licenses/BSD-2-Clause BSD-2-Clause
  * @package DataModeling
  */
-namespace DataModeling\DataAccess\Query;
+namespace DataModeling\DataAccess\ServiceWrapper\PDO;
 
 /* Use statements for Framework namespaces */
 use DataModeling\DataAccess\Interrupt;
+use DataModeling\DataAccess\ServiceWrapper;
 
 /* Use statements for ZF2 namespaces */
 use Zend\Validator;
@@ -20,7 +21,7 @@ use SplDoublyLinkedList;
 use PDO;
 use PDOStatement;
 
-abstract class PDOQueryAbstract extends QueryAbstract
+abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
 {
 
     /**
@@ -357,8 +358,8 @@ abstract class PDOQueryAbstract extends QueryAbstract
      *
      * @todo Eventually I'll replace all of this with DI object / interface
      *
-     * It's using "push" by default because the default storage object is
-     * an SplDoublyLinkedList
+     *       It's using "push" by default because the default storage object is
+     *       an SplDoublyLinkedList
      */
     protected function ProcessResponse ()
     {

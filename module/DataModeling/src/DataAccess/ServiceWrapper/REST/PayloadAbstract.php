@@ -7,21 +7,20 @@
  * @license http://opensource.org/licenses/BSD-2-Clause BSD-2-Clause
  * @package DataModeling
  */
-namespace DataModeling\DataAccess\Query\Payload;
+namespace DataModeling\DataAccess\ServiceWrapper\REST;
 
 /* Use statements for Framework namespaces */
 use DataModeling\DataAccess\Model;
 
 /**
- * PDOPayloadAbstract
+ * PayloadAbstract
  *
- * This model represents the basic payload that we would use for all PDO Queries
+ * This model represents the basic payload that we would use for all REST Queries
  *
  * I have decided to just make it specific for now, if I need a layer between the
  * StandardModelAbstract and itself, I can add it easily later, whereas it
  * is hard to retro-add a layer between this class and the final payload classes
  */
-abstract class PDOPayloadAbstract extends Model\StandardModelAbstract
+abstract class PayloadAbstract extends Model\StandardModelAbstract
 {
-
 }

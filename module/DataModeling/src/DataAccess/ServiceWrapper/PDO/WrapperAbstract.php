@@ -7,12 +7,13 @@
  * @license http://opensource.org/licenses/BSD-2-Clause BSD-2-Clause
  * @package DataModeling
  */
-namespace DataModeling\DataAccess\ServiceWrapper;
+namespace DataModeling\DataAccess\ServiceWrapper\PDO;
 
 /* Use statements for Framework namespaces */
 use DataModeling\DataAccess\Interfaces;
 use DataModeling\DataAccess\Interrupt;
 use DataModeling\DataAccess\Model;
+use DataModeling\DataAccess\ServiceWrapper;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
@@ -24,7 +25,7 @@ use PDO;
 /* Use statements for Zend namespaces */
 use Exception;
 
-abstract class PDOWrapperAbstract extends WrapperAbstract implements Interfaces\DataMapper, EventManagerAwareInterface, ServiceLocatorAwareInterface
+abstract class WrapperAbstract extends ServiceWrapper\WrapperAbstract implements Interfaces\DataMapper, EventManagerAwareInterface, ServiceLocatorAwareInterface
 {
     /* the following constants *need* to be defined in the child class */
     const DATABASE_REGISTRY_TOKEN = '';
@@ -39,6 +40,7 @@ abstract class PDOWrapperAbstract extends WrapperAbstract implements Interfaces\
     protected $mModelPrototype;
 
     protected $mEvents;
+
     protected $mServices;
 
     /**
@@ -544,13 +546,12 @@ abstract class PDOWrapperAbstract extends WrapperAbstract implements Interfaces\
         return $this->mEvents;
     }
 
-
-    public function setServiceLocator(ServiceLocatorInterface $pServiceLocator)
+    public function setServiceLocator (ServiceLocatorInterface $pServiceLocator)
     {
         $this->mServices = $pServiceLocator;
     }
 
-    public function getServiceLocator()
+    public function getServiceLocator ()
     {
         return $this->mServices;
     }

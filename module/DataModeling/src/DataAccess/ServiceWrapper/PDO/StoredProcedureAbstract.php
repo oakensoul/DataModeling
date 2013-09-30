@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/BSD-2-Clause BSD-2-Clause
  * @package DataModeling
  */
-namespace DataModeling\DataAccess\Query;
+namespace DataModeling\DataAccess\ServiceWrapper\PDO;
 
 /* Use statements for Framework namespaces */
 use DataModeling\DataAccess\Interrupt;
@@ -17,7 +17,7 @@ use SplDoublyLinkedList;
 use PDO;
 use PDOStatement;
 
-abstract class PDOProcedureAbstract extends PDOQueryAbstract
+abstract class StoredProcedureAbstract extends QueryAbstract
 {
 
     /**

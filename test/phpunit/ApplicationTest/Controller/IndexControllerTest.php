@@ -3,7 +3,7 @@ namespace ApplicationTest\Controller;
 
 use ApplicationTest\Bootstrap;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
-use DataModeling\Controller\IndexController;
+use DataModeling\Http\Controller\IndexController;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;

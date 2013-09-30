@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/BSD-2-Clause BSD-2-Clause
  * @package DataModeling
  */
-namespace DataModeling\DataAccess\ServiceWrapper;
+namespace DataModeling\DataAccess\ServiceWrapper\REST;
 
 use DataModeling\DataAccess\Interfaces\DataMapper;
 use Zend\EventManager\AbstractListenerAggregate;
@@ -15,7 +15,7 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\Controller\PluginManager;
 
-abstract class RestListenerAbstract extends AbstractListenerAggregate implements ServiceLocatorAwareInterface
+abstract class ListenerAbstract extends AbstractListenerAggregate implements ServiceLocatorAwareInterface
 {
 
     protected $mDataMapper;
