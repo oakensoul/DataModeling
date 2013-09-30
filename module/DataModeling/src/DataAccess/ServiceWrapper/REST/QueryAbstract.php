@@ -14,7 +14,7 @@ use DataModeling\DataAccess\Interrupt;
 use DataModeling\DataAccess\ServiceWrapper;
 
 /* Use statements for ZF2 namespaces */
-use Zend\Validator;
+//use Zend\Validator;
 use Zend\Json\Json;
 use Zend\Http;
 

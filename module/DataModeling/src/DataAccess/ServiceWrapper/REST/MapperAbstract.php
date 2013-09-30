@@ -10,18 +10,16 @@
 namespace DataModeling\DataAccess\ServiceWrapper\REST;
 
 /* Use statements for Framework namespaces */
+use DataModeling\DataAccess\Interfaces;
 use DataModeling\DataAccess\Interrupt;
 use DataModeling\DataAccess\Model;
-use DataModeling\DataAccess\ServiceWrapper;
 use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /* Use statements for Zend namespaces */
 use Exception;
 
-abstract class WrapperAbstract extends ServiceWrapper\WrapperAbstract implements EventManagerAwareInterface, ServiceLocatorAwareInterface
+abstract class MapperAbstract extends WrapperAbstract implements Interfaces\DataMapper
 {
 
     /**
@@ -34,6 +32,71 @@ abstract class WrapperAbstract extends ServiceWrapper\WrapperAbstract implements
     protected $mEvents;
 
     protected $mServices;
+
+    /**
+     * DataPersistence -- Create
+     *
+     * With the model provided, adds it to the data mapper's data source. The Domain Model
+     * must have all of its required properties set.
+     *
+     * ($pModel->CheckLoaded needs to return true)
+     *
+     * @param
+     *            Model\DomainModelAbstract
+     */
+    abstract public function Create (Model\DomainModelAbstract $pModel);
+
+    /**
+     * DataPersistence -- Read
+     *
+     * With the model provided, load all of its properties from the Data Source.The
+     * Domain Model must have all of its primary keys set.
+     *
+     * ($pModel->CheckPrimaryKeys needs to return true)
+     *
+     * @param
+     *            Model\DomainModelAbstract
+    */
+    public function Read (Model\DomainModelAbstract $pModel);
+
+    /**
+     * DataPersistence -- Update
+     *
+     * With the model provided, updates the data mapper's data source. The Domain Model
+     * must have all of its required properties set.
+     *
+     * ($pModel->CheckLoaded needs to return true)
+     *
+     * @param
+     *            Model\DomainModelAbstract
+    */
+    public function Update (Model\DomainModelAbstract $pModel);
+
+    /**
+     * DataPersistence -- Delete
+     *
+     * With the model provided, delete it from the Data Source.The
+     * Domain Model must have all of its primary keys set.
+     *
+     * ($pModel->CheckPrimaryKeys needs to return true)
+     *
+     * @param
+     *            Model\DomainModelAbstract
+    */
+    public function Delete (Model\DomainModelAbstract $pModel);
+
+    /**
+     * DataPersistence -- Save
+     *
+     * Saves the model by calling create or update. If the
+     * application understands the state of the object, it should use
+     * Create or Update, Save should only be used if the system needs
+     * to determine the course of action
+     *
+     * Keep in mind, Save will occur additional overhead in derived classes
+     * and should not be used unless necessary.
+    */
+    public function Save (Model\DomainModelAbstract $pModel);
 
     /**
      * Accessor -- SetServiceObject
