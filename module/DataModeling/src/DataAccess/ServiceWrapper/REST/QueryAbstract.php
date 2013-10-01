@@ -14,12 +14,15 @@ use DataModeling\DataAccess\Interrupt;
 use DataModeling\DataAccess\ServiceWrapper;
 
 /* Use statements for ZF2 namespaces */
-//use Zend\Validator;
+// use Zend\Validator;
 use Zend\Json\Json;
 use Zend\Http;
+use Zend\Mvc\Router\RouteStackInterface;
 
 /* Use statements for core php namespaces */
 use SplDoublyLinkedList;
+use Traversable;
+use Exception;
 
 abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
 {
@@ -33,6 +36,22 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
     protected $mThrowEmptyModelExceptions = false;
 
     protected $mQueryTimeout = 30;
+
+    protected $mRouteName;
+
+    /**
+     * RouteStackInterface instance.
+     *
+     * @var RouteStackInterface
+     */
+    protected $mRouter;
+
+    /**
+     * RouteInterface match returned by the router.
+     *
+     * @var RouteMatch.
+     */
+    protected $routeMatch;
 
     protected function GetClientOptions ()
     {
@@ -54,8 +73,9 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
          */
         $so->setMethod(Http\Request::METHOD_GET);
 
-        // the Query should be responsible for adding the "parameters" onto the URL i suppose?
-        $get_parameters = $this->FunctionThatDoesntExistYet(); // returns something like: "$pSeason/$pFoo/$pBar/"
+        // returns something like: "$pSeason/$pFoo/$pBar/"
+        $get_parameters = $this->GetRoute();
+
         $so->setUri($so->getUri() . $get_parameters);
 
         $client_options = $this->GetClientOptions();
@@ -80,6 +100,49 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
         }
 
         return $this->mResult;
+    }
+
+    /**
+     * Generates an url given the name of a route.
+     *
+     * @return string Url For the link href attribute
+     *
+     * @throws Exception If no RouteStackInterface was provided
+     * @throws Exception If RouteName not defined
+     */
+    public function GetRoute ()
+    {
+        // things that need to be figured out;
+        $params = $this->GetPayload()->extract();
+        $options = array ();
+
+        if (null === $this->mRouter)
+        {
+            throw new Exception('No RouteStackInterface instance provided');
+        }
+
+        if ($this->mRouteName === null)
+        {
+            throw new Exception('RouteName not defined for ' . get_class($this));
+        }
+
+        $options['name'] = $this->mRouteName;
+
+        // Zend\Mvc\Router\SimpleRouteStack
+
+        return $this->mRouter->assemble($params, $options);
+    }
+
+    /**
+     * Set the mRouter to use for assembling.
+     *
+     * @param RouteStackInterface $pRouter
+     * @return Url
+     */
+    public function setRouter (RouteStackInterface $pRouter)
+    {
+        $this->mRouter = $pRouter;
+        return $this;
     }
 
     /**
