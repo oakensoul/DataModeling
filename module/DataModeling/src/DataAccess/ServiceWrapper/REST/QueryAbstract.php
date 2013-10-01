@@ -83,7 +83,7 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
         $client = new Http\Client();
         $client->setOptions($client_options);
 
-        $this->mServiceResponse = $client->dispatch($so);
+        $this->mServiceResponse = $client->dispatch($so)->GetBody();
 
         $this->mResult = $this->GetResultPrototype();
 
@@ -164,9 +164,9 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
     /*
      * @return SplDoublyLinkedList
      */
-    protected function ProcessResponse ($pResponse)
+    protected function ProcessResponse ()
     {
-        $representations = Json::decode($pResponse->getBody());
+        $representations = Json::decode($this->mServiceResponse->getBody());
 
         foreach ($representations as $representation)
         {
