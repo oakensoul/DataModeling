@@ -17,6 +17,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Mvc\Router\RouteStackInterface;
 
 /* Use statements for Zend namespaces */
 use Exception;
@@ -35,6 +36,8 @@ abstract class WrapperAbstract extends ServiceWrapper\WrapperAbstract implements
 
     protected $mServices;
 
+    protected $mRouteStack;
+
     /**
      * Accessor -- SetServiceObject
      *
@@ -49,12 +52,12 @@ abstract class WrapperAbstract extends ServiceWrapper\WrapperAbstract implements
     {
         if (! is_object($pServiceObject))
         {
-            throw new Interrupt\InvalidServiceObjectException(__METHOD__, 'Zend\Http\Request', 'non-object');
+            throw new Interrupt\InvalidServiceObjectException(__METHOD__, 'Zend\Http\Client', 'non-object');
         }
 
-        if (! $pServiceObject instanceof \Zend\Http\Request)
+        if (! $pServiceObject instanceof \Zend\Http\Client)
         {
-            throw new Interrupt\InvalidServiceObjectException(__METHOD__, 'Zend\Http\Request', get_class($pServiceObject));
+            throw new Interrupt\InvalidServiceObjectException(__METHOD__, 'Zend\Http\Client', get_class($pServiceObject));
         }
 
         $this->mServiceObject = $pServiceObject;
@@ -127,6 +130,27 @@ abstract class WrapperAbstract extends ServiceWrapper\WrapperAbstract implements
         $this->RequireVerifiedModel(__METHOD__, $pPrototype);
 
         $this->mModelPrototype = $pPrototype;
+    }
+
+    /**
+     * Set the RouteStack object that the Query route names
+     * will be processed from by the QueryAbstract class
+     *
+     * @param RouteStackInterface $pRouteStack
+     */
+    public function SetRouteStack (RouteStackInterface $pRouteStack)
+    {
+        $this->mRouteStack = $pRouteStack;
+    }
+
+    /**
+     * Retrieve the RouteStack object
+     *
+     * @return RouteStackInterface
+     */
+    public function GetRouteStack ()
+    {
+        return $this->mRouteStack;
     }
 
     /**

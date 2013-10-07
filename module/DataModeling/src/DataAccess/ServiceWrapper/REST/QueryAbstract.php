@@ -16,7 +16,6 @@ use DataModeling\DataAccess\ServiceWrapper;
 /* Use statements for ZF2 namespaces */
 // use Zend\Validator;
 use Zend\Json\Json;
-use Zend\Http;
 use Zend\Mvc\Router\RouteStackInterface;
 
 /* Use statements for core php namespaces */
@@ -57,6 +56,8 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
     {
         $result = array ();
         $result['timeout'] = $this->mQueryTimeout;
+
+        return $result;
     }
 
     /**
@@ -66,24 +67,18 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
      */
     public function Execute ()
     {
-        $so = $this->GetServiceWrapper()->GetServiceObject();
-
-        /**
-         * All Query classes should be Get requests
-         */
-        $so->setMethod(Http\Request::METHOD_GET);
-
-        // returns something like: "$pSeason/$pFoo/$pBar/"
-        $get_parameters = $this->GetRoute();
-
-        $so->setUri($so->getUri() . $get_parameters);
-
+        $client = $this->GetServiceWrapper()->GetServiceObject();
         $client_options = $this->GetClientOptions();
-
-        $client = new Http\Client();
         $client->setOptions($client_options);
 
-        $this->mServiceResponse = $client->dispatch($so)->GetBody();
+        $this->setRouter($this->GetServiceWrapper()
+            ->GetRouteStack());
+
+        $request = $client->getRequest();
+        $request->setMethod(static::REQUEST_METHOD);
+        $request->getUri()->setPath($this->GetRoute());
+
+        $this->mServiceResponse = $client->dispatch($request)->GetBody();
 
         $this->mResult = $this->GetResultPrototype();
 
@@ -128,9 +123,9 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
 
         $options['name'] = $this->mRouteName;
 
-        // Zend\Mvc\Router\SimpleRouteStack
+        $url = $this->mRouter->assemble($params, $options);
 
-        return $this->mRouter->assemble($params, $options);
+        return $url;
     }
 
     /**
@@ -166,10 +161,12 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
      */
     protected function ProcessResponse ()
     {
-        $representations = Json::decode($this->mServiceResponse->getBody());
+        $representations = Json::decode($this->mServiceResponse);
 
         foreach ($representations as $representation)
         {
+            \Zend\Debug\Debug::dump($representation, 'ZDEBUG');
+
             $this->mResult->push($representation);
         }
 
