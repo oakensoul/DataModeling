@@ -52,7 +52,7 @@ class ComplexTypeConverter
         $pMixed = get_object_vars($pMixed);
       }
 
-      $result = array_map(array ( 'Framework\Utility\ComplexTypeConverter', 'RecursiveObjectToArray' ), $pMixed);
+      $result = array_map(array ( 'DataModeling\Utility\ComplexTypeConverter', 'RecursiveObjectToArray' ), $pMixed);
     }
 
     return $result;

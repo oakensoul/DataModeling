@@ -12,6 +12,7 @@ namespace DataModeling\DataAccess\ServiceWrapper\REST;
 /* Use statements for Framework namespaces */
 use DataModeling\DataAccess\Interrupt;
 use DataModeling\DataAccess\ServiceWrapper;
+use DataModeling\Utility;
 
 /* Use statements for ZF2 namespaces */
 // use Zend\Validator;
@@ -71,8 +72,7 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
         $client_options = $this->GetClientOptions();
         $client->setOptions($client_options);
 
-        $this->setRouter($this->GetServiceWrapper()
-            ->GetRouteStack());
+        $this->setRouter($this->GetServiceWrapper()->GetRouteStack() );
 
         $request = $client->getRequest();
         $request->setMethod(static::REQUEST_METHOD);
@@ -165,9 +165,12 @@ abstract class QueryAbstract extends ServiceWrapper\QueryAbstract
 
         foreach ($representations as $representation)
         {
-            \Zend\Debug\Debug::dump($representation, 'ZDEBUG');
+            $data = Utility\ComplexTypeConverter::StdClassToArray($representation);
 
-            $this->mResult->push($representation);
+            $model = $this->GetServiceWrapper()->GetPrototype();
+            $model->Hydrate($data);
+
+            $this->mResult->push($model);
         }
 
         $this->mResult->rewind();

@@ -14,6 +14,12 @@ use DataModeling\DataAccess\Interrupt;
 
 abstract class QueryAbstract
 {
+    /**
+     * Stores the namespace for our Resource/Entity
+     *
+     * @var string
+     */
+    protected $mNamespace;
 
     /**
      * The payload object provided by the caller
